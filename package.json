@@ -9,6 +9,10 @@
     "#imports/*": "./out/imports/*"
   },
   "exports": {
+    ".": {
+      "default": "./out/exports/index.js",
+      "types": "./out/exports/index.d.ts"
+    },
     "./*": {
       "default": "./out/exports/*.js",
       "types": "./out/exports/*.d.ts"
