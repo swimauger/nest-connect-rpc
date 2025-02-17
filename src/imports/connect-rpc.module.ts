@@ -1,12 +1,13 @@
 import type { DescService } from '@bufbuild/protobuf';
 import type { ConnectRouter } from '@connectrpc/connect';
 import { fastifyConnectPlugin } from '@connectrpc/connect-fastify';
-import { DynamicModule, Logger, Module, OnApplicationBootstrap } from '@nestjs/common';
+import { DynamicModule, Module, OnApplicationBootstrap } from '@nestjs/common';
 import { DiscoveryService, HttpAdapterHost, MetadataScanner, Reflector } from '@nestjs/core';
 import type { FastifyAdapter } from '@nestjs/platform-fastify';
 
 import { ReflectionController } from '#imports/controllers/reflection.controller.js';
 import { ConnectRpc } from '#imports/decorators/connect-rpc.js';
+import { registry } from '#imports/registry.js';
 
 @Module({
   controllers: [ ReflectionController ]
@@ -20,8 +21,6 @@ export class ConnectRpcModule implements OnApplicationBootstrap {
     };
   }
 
-  private readonly logger = new Logger(ConnectRpcModule.name);
-
   public constructor(
     private readonly discoveryService: DiscoveryService,
     private readonly httpAdapterHost: HttpAdapterHost<FastifyAdapter>,
@@ -34,10 +33,10 @@ export class ConnectRpcModule implements OnApplicationBootstrap {
     await this.httpAdapterHost.httpAdapter
       .getInstance()
       .register(fastifyConnectPlugin, {
-        routes: async (router: ConnectRouter) => {
-          for (const [ service, implementation ] of this.getRpcServices()) {
-            await router.service(service, implementation);
-            ReflectionController.services.push(service);
+        routes: (router: ConnectRouter) => {
+          for (const [ service, implementation ] of this.getRpcServices().entries()) {
+            router.service(service, implementation);
+            registry.add(service);
           }
         }
       });
