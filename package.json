@@ -1,0 +1,36 @@
+{
+  "name": "nest-connect-rpc",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=14.x || >=16.x"
+  },
+  "imports": {
+    "#exports/*": "./out/exports/*",
+    "#imports/*": "./out/imports/*"
+  },
+  "exports": {
+    "./*": {
+      "default": "./out/exports/*.js",
+      "types": "./out/exports/*.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "watch": "tsc --build --watch"
+  },
+  "peerDependencies": {
+    "@bufbuild/protobuf": "*"
+  },
+  "optionalDependencies": {
+    "@connectrpc/connect-express": "*",
+    "@connectrpc/connect-fastify": "*",
+    "@connectrpc/connect-node": "*",
+    "@nestjs/platform-express": "*",
+    "@nestjs/platform-fastify": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "typescript": "^5.7.3"
+  }
+}

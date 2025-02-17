@@ -1,0 +1,9 @@
+version: v2
+modules:
+  - path: src/imports/protobufs
+lint:
+  use:
+    - DEFAULT
+breaking:
+  use:
+    - FILE
