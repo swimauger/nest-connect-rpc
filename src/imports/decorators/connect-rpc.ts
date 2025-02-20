@@ -40,8 +40,11 @@ export function ConnectRpc<T extends DescService>(service: T) {
     descriptor: ConnectRpcPropertyDescriptor<T, U>
   ) {
     if (descriptor.value) {
-      Reflect.defineMetadata('KEY', service, descriptor.value);
+      Reflect.defineMetadata('connect-rpc', service, descriptor.value);
+    } else {
+      throw new Error('ConnectRpc must be used on a method');
     }
-    throw new Error('ConnectRpc must be used on a method');
   }
 }
+
+ConnectRpc.KEY = 'connect-rpc';
