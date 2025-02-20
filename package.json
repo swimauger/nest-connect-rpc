@@ -1,6 +1,6 @@
 {
   "name": "nest-connect-rpc",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "engines": {
     "node": ">=14.x || >=16.x"
   },
