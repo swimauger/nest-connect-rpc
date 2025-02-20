@@ -1,4 +1,5 @@
 import { create, toBinary } from '@bufbuild/protobuf';
+import { FileDescriptorProtoSchema } from '@bufbuild/protobuf/wkt';
 import { Controller } from '@nestjs/common';
 
 import {
@@ -12,7 +13,6 @@ import {
 } from '#imports/protobufs/v1alpha/reflection_pb.js';
 import { ConnectRpc } from '#imports/decorators/connect-rpc.js';
 import { registry } from '#imports/registry.js';
-import { FileDescriptorProtoSchema } from '@bufbuild/protobuf/wkt';
 
 @Controller()
 export class ReflectionController {
