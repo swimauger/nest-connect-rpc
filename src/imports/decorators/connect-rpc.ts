@@ -31,7 +31,7 @@ type ConnectRpcResponse<T extends DescService, U extends keyof T['method']> =
     void;
 
 type ConnectRpcPropertyDescriptor<T extends DescService, U extends keyof T['method']> =
-  TypedPropertyDescriptor<(request: ConnectRpcRequest<T, U>) => ConnectRpcResponse<T, U>>;
+  TypedPropertyDescriptor<(request: ConnectRpcRequest<T, U>) => ConnectRpcResponse<T, U> | Promise<ConnectRpcResponse<T, U>>>;
 
 export function ConnectRpc<T extends DescService>(service: T) {
   return function<U extends keyof T['method']>(
