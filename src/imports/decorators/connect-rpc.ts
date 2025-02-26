@@ -3,14 +3,10 @@ import { DescService } from '@bufbuild/protobuf';
 type ConnectRpcRequest<T extends DescService, U extends keyof T['method']> =
   T['method'][U] extends { methodKind: 'unary' } ?
     // @ts-ignore
-    Exclude<T['method'][U]['input']['a'], boolean> |
-    // @ts-ignore
-    Promise<Exclude<T['method'][U]['input']['a'], boolean>> :
+    Exclude<T['method'][U]['input']['a'], boolean> :
   T['method'][U] extends { methodKind: 'server_streaming' } ?
     // @ts-ignore
-    Exclude<T['method'][U]['input']['a'], boolean> |
-    // @ts-ignore
-    Promise<Exclude<T['method'][U]['input']['a'], boolean>> :
+    Exclude<T['method'][U]['input']['a'], boolean> :
   T['method'][U] extends { methodKind: 'client_streaming' } ?
     // @ts-ignore
     AsyncGenerator<Exclude<T['method'][U]['input']['a'], boolean>> :
@@ -22,17 +18,13 @@ type ConnectRpcRequest<T extends DescService, U extends keyof T['method']> =
 type ConnectRpcResponse<T extends DescService, U extends keyof T['method']> =
   T['method'][U] extends { methodKind: 'unary' } ?
     // @ts-ignore
-    Exclude<T['method'][U]['output']['a'], boolean> |
-    // @ts-ignore
     Promise<Exclude<T['method'][U]['output']['a'], boolean>> :
   T['method'][U] extends { methodKind: 'server_streaming' } ?
     // @ts-ignore
-    Exclude<T['method'][U]['output']['a'], boolean> |
-    // @ts-ignore
-    Promise<Exclude<T['method'][U]['output']['a'], boolean>> :
+    AsyncGenerator<Exclude<T['method'][U]['output']['a'], boolean>> :
   T['method'][U] extends { methodKind: 'client_streaming' } ?
     // @ts-ignore
-    AsyncGenerator<Exclude<T['method'][U]['output']['a'], boolean>> :
+    Promise<Exclude<T['method'][U]['output']['a'], boolean>> :
   T['method'][U] extends { methodKind: 'bidi_streaming' } ?
     // @ts-ignore
     AsyncGenerator<Exclude<T['method'][U]['output']['a'], boolean>> :
